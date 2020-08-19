@@ -45,7 +45,7 @@ class Monster
   void display()
   {
     fill(255);
-    image(m_sprite, m_posX, m_posY);
+    //image(m_sprite, m_posX, m_posY);
   }
   
   void raiseLevel()

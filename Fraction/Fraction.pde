@@ -511,7 +511,7 @@ void displayOWMenu()// muestra el menu
     Monster[] testDisplay = player.getPlayerTeam();
     for (int i = 0; i<testDisplay.length; ++i)
     {
-      testDisplay[i].setSprite(SpritesIcons[testDisplay[i].getMonsterID()]);//mete el array de las imagenes de las armas
+      //testDisplay[i].setSprite(SpritesIcons[testDisplay[i].getMonsterID()]);//mete el array de las imagenes de las armas
       testDisplay[i].setPosition(width/2-boxFrame03.width/2+10, height/2-boxFrame03.height/2+15+(i*gap));
       textSize(18);
       textMessage(width/2-boxFrame03.width/2+64, height/2-boxFrame03.height/2+45+(i*gap), "Nombre: "+ (testDisplay[i].getMonsterName()) +"   Lvl: "+ str(testDisplay[i].getMonsterLvl()) +"   HP: "+ str(testDisplay[i].getMonsterHP())+"/"+str(testDisplay[i].getMonsterMaxHP()), color(255, 30, 30));
