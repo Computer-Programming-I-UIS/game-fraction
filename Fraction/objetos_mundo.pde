@@ -8,10 +8,10 @@ class OverworldObject extends Collision
   {
     super(posX,posY,tileSize);
     m_sprite = sprite;
-    m_npcType = type;
+    //m_npcType = type;
     
     m_direction = 1;
-    if(sprite != null) m_spriteCount = m_sprite.width/tileSize;
+    //if(sprite != null) m_spriteCount = m_sprite.width/tileSize;
   }
   
   void display()
@@ -19,16 +19,16 @@ class OverworldObject extends Collision
     //show the sprite and its direction
     if(m_npcType == 0)
     {
-      if (m_direction == 1) m_imgFrame = m_sprite.get(0, 0, m_sprite.width/m_spriteCount, m_sprite.height);// DOWN 
+     /* if (m_direction == 1) m_imgFrame = m_sprite.get(0, 0, m_sprite.width/m_spriteCount, m_sprite.height);// DOWN 
       else if (m_direction == 0) m_imgFrame = m_sprite.get((m_sprite.width/m_spriteCount)*6, 0, m_sprite.width/m_spriteCount, m_sprite.height);// RIGHT
       else if (m_direction == 2) m_imgFrame = m_sprite.get((m_sprite.width/m_spriteCount)*9, 0, m_sprite.width/m_spriteCount, m_sprite.height);// LEFT
-      else if (m_direction == 3) m_imgFrame = m_sprite.get((m_sprite.width/m_spriteCount)*3, 0, m_sprite.width/m_spriteCount, m_sprite.height);// UP  
+      else if (m_direction == 3) m_imgFrame = m_sprite.get((m_sprite.width/m_spriteCount)*3, 0, m_sprite.width/m_spriteCount, m_sprite.height);// UP  */
     }
     else
     {
       m_imgFrame = m_sprite.get(0, 0, m_sprite.width/m_spriteCount, m_sprite.height);// DOWN 
     }
-    image(m_imgFrame, m_posX+tileSize-m_imgFrame.width, m_posY+tileSize-m_imgFrame.height);
+    //image(m_imgFrame, m_posX+tileSize-m_imgFrame.width, m_posY+tileSize-m_imgFrame.height);
   }
   
   void changeDir(int direction)

@@ -45,8 +45,7 @@ PImage imgArrow, boxFrame01, boxFrame02, boxFrame03, boxFrame04, boxFrame05;//sp
 PImage overworldmapImg, house01Img, house02Img, house03Img, tileset01;//sprites de los lugares
 PImage trainerSprite01, battleBackground01;//sprites de pelea
 
-PImage[] SpritesFront = new PImage[0];  // de frente
-PImage[] SpritesBack = new PImage[0];   // de espalda
+
 PImage[] SpritesIcons = new PImage[0];  //iconos
 PImage healthbarBg, healthbarOver, expbarOver;//barra de vida
 
@@ -71,8 +70,8 @@ boolean isTransitioning; //transicionon del efecto
 int fadeAmount = 15; //diracion de 0.25 seg
 float destinationX, destinationY;//destino de teletransportacion
 
-//variables monstruos
-String[] Objetlist = {"pistola", "escopeta", "Rifle", "cota arbustos", "hacha", "ivanov", "puño americano"};//unicas armas
+//variables Armas
+String[] Objetlist = {"motosierra", "pistola", "Rifle", "escopeta", "punio americano","hacha"};//unicas armas
 
 //variable de batallas
 boolean isBattling = false;//saber cuando dibujar la fase de batalla
@@ -96,12 +95,9 @@ void setup()
   size(1000, 700);    //tamaño de resolucion inicial
 
   frameRate(480);
-  noSmooth();//para que todo se vea en pixel
+  noSmooth();//para que todo se vea en pixelfo
 
-  overworldmapImg = loadImage("data/sprites/map01.png");        //el mapa
-  //house01Img = loadImage("data/sprites/map01_house01.png");     //casa 1 en la parpe interna
-  //house02Img = loadImage("data/sprites/map01_house02.png");     //casa 2 en la parte interna
-  //house03Img = loadImage("data/sprites/map01_house03.png");     //casa 3 en la parte interna
+  overworldmapImg = loadImage("data/sprites/map02.png");        //el mapa
   tileset01 = loadImage("sprites/spr_tileset01.png");// tejedos sobre el mapa
 
   //menu 
@@ -111,8 +107,13 @@ void setup()
   boxFrame04 = loadImage("data/sprites/boxFrame04.png");
   boxFrame05 = loadImage("data/sprites/boxFrame05.png");
   imgArrow = loadImage("data/sprites/imgArrow.png");//flecha (la utilizamos para indicar las opciones en el menu principal )
-  font = createFont("data/BloodThirst.ttf", 14);      //fuente de texto
+  font = createFont("data/pkmnrs.ttf", 14);      //fuente de texto
   textFont(font);
+  
+  for (int i= 0; i < Objetlist.length; ++i){
+  PImage loadedIconimg = loadImage("data/Sprites/Spritesicon" + i + ".png");
+  SpritesIcons = (PImage[])(append(SpritesIcons, loadedIconimg));
+  }
 
   //player
   pSprite = loadImage("sprites/spr_jugador02.png");  //sprites del personaje
@@ -134,7 +135,7 @@ void setup()
 
 void loadCollision()
 {
-  String[] loadFile = loadStrings("data/scripts/map01collision4.txt");//está en el archivo que map01colision4, básicamente te dice donde están las cordenadas de de las colisiones 
+  String[] loadFile = loadStrings("data/scripts/map03.txt");//está en el archivo que map01colision4, básicamente te dice donde están las cordenadas de de las colisiones 
   String[] dissection = new String[0];//toma el anterior dato para ser usado de mejor, forma.
 
   for (int i = 0; i<loadFile.length; ++i)
@@ -254,7 +255,6 @@ void draw()
   textSize(15);
   textAlign(LEFT);
   textLeading(30);
-  if (owMenu == -1 || owMenuOpened == false) textMessage(10, 30, "Z or W = correr\nX = interactuar\nEnter = abrir el menu (cierra con  Z/W)\nflechas = moverse alrededor\nO: zoom en la pantalla / L: disminuye la pantalla\nR = ir a casa\nP = load game file", color(255, 30, 30)/*blanco*/);
   if (showFPS) textMessage(width/2, height-30, str(frameRate), color(255));//si showfps esta activado se muestra en la parte inferior  
 
   if (isInConversation == true) conversationHandler(0);// si está en conversación
@@ -271,13 +271,12 @@ void keyPressed()
   if (key == 'l') owScaler -= 0.2;
   if (key == 'p')//cargar partida
   {
-    String[] loadfile = loadStrings("savegame01.txt"); //guarda la posicion del jugador y ademas...
+    String[] loadfile = loadStrings("savegame01.txt"); //guarda la posicion del jugador y ademas...  /set posicion (getPosX, getPosY)
     player.setPosition(float(loadfile[0]), float(loadfile[1])); //posicion
     showFPS = boolean(loadfile[2]);                             //fps utilizado
     surface.setSize(int(loadfile[3]), int(loadfile[4]));        //tamaño de la superficie
 
 
-    //battleBackground01.resize(width,height);
     player.setItemCount(0, int(loadfile[5]));
     player.setItemCount(1, int(loadfile[6]));
     pMonsterSeen = int(loadfile[7]);
@@ -405,7 +404,7 @@ void keyPressed()
       }
 
       Monster[] Data = player.getPlayerTeam();
-      for (int i = 0; i<Data.length; ++i)//pasar todas la habilidades del jugador
+      for (int i = 0; i<Data.length; ++i)//pasar todas la habilidades del jugador   
       {
         savefile = append(savefile, Data[i].getData());//almacena tiodas las habilidades
       }
@@ -506,15 +505,15 @@ void displayOWMenu()// muestra el menu
     noFill();
     stroke(225, 0, 0);//rojo
     strokeWeight(4);
-    rect(width/2-boxFrame03.width/2+10, (height/2-boxFrame03.height/2+15)+((boxFrame03.height/4-5)*submenuOption), boxFrame03.width*0.75, 50);
+    rect(width/2-boxFrame03.width/2+10, (height/2-boxFrame03.height/2+15)+((boxFrame03.height/4-5)*submenuOption), boxFrame03.width*0.80, 50);
 
     Monster[] testDisplay = player.getPlayerTeam();
     for (int i = 0; i<testDisplay.length; ++i)
     {
-      //testDisplay[i].setSprite(SpritesIcons[testDisplay[i].getMonsterID()]);//mete el array de las imagenes de las armas
-      testDisplay[i].setPosition(width/2-boxFrame03.width/2+10, height/2-boxFrame03.height/2+15+(i*gap));
-      textSize(18);
-      textMessage(width/2-boxFrame03.width/2+64, height/2-boxFrame03.height/2+45+(i*gap), "Nombre: "+ (testDisplay[i].getMonsterName()) +"   Lvl: "+ str(testDisplay[i].getMonsterLvl()) +"   HP: "+ str(testDisplay[i].getMonsterHP())+"/"+str(testDisplay[i].getMonsterMaxHP()), color(255, 30, 30));
+      testDisplay[i].setSprite(SpritesIcons[testDisplay[i].getMonsterID()]);//mete el array de las imagenes de las armas
+      testDisplay[i].setPosition(width/2-boxFrame03.width/2+30, height/2-boxFrame03.height/2+30+(i*gap));
+      textSize(16);
+      textMessage(width/2-boxFrame03.width/2+64, height/2-boxFrame03.height/2+45+(i*gap), (testDisplay[i].getMonsterName()) +"  poder "+ str(testDisplay[i].getMonsterLvl()) +"precison"+ str(testDisplay[i].getMonsterHP())+"/"+str(testDisplay[i].getMonsterMaxHP()), color(255, 30, 30));
       testDisplay[i].display();
     }
   }
@@ -532,7 +531,7 @@ void displayOWMenu()// muestra el menu
     imageMode(CENTER);
     image(boxFrame03, width/2, height/2);
     imageMode(CORNER);
-    image(trainerSprite01, width/2+boxFrame03.width/2-trainerSprite01.width, height/2-boxFrame03.height/2+5);
+    image(trainerSprite01, width/2+boxFrame03.width/2-trainerSprite01.width, height/2-boxFrame03.height/2+30);
     color c = color(255,30,30);
     textLeading(30);
     textMessage(width/2-boxFrame03.width/2+20, height/2-boxFrame03.height/2+40, "NOMBRE\nGENERO\nARMA\nINFECTADOS ENCONTRADOS\nBATALLAS GANADAS\nTIEMPO JUGADO", c);

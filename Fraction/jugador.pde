@@ -30,8 +30,8 @@ class Player
     m_checkTile = false;
     fill(255, 255, 255, 100);//white
 
-    if (m_isRunning) m_speed = 1.0;
-    if (m_isRunning == false) m_speed = 0.5;
+    if (m_isRunning) m_speed = 2.0;
+    if (m_isRunning == false) m_speed = 1.0;
 
     if (m_isMoving == true && m_distanceTravelled < tileSize)
     {
@@ -46,7 +46,7 @@ class Player
     
     if (m_distanceTravelled >= tileSize)
     {
-      m_isMoving = false;//no longer moving
+      m_isMoving = false;//movimiento corto
       m_isRunning = false;
       m_checkTile = true;
       //println("step");
