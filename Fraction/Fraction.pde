@@ -36,7 +36,7 @@ PImage pSprite, npcSprite01, npcSprite02, npcSprite03;//sprites de el jugador y 
 PImage imgArrow, boxFrame01, boxFrame02, boxFrame03, boxFrame04, boxFrame05;//sprites para los menu
 PImage overworldmapImg, house01Img, house02Img, house03Img, tileset01;//sprites de los lugares
 PImage trainerSprite01, battleBackground01;//sprites de pelea
-
+PImage infected;
 
 //menu importaciones
 PImage background, menu, clasification;
@@ -130,7 +130,7 @@ void setup()
   npcSprite02 = loadImage("data/sprites/spr_npc02.png");//npc 2
   npcSprite03 = loadImage("data/sprites/spr_npc03.png");//npc 3
   trainerSprite01 = loadImage("data/sprites/spr_trainer01.png");//imagen del juagor en el menú
-  
+   infected = loadImage("data/sprites/infected.png");
   
   loadCollision();   //llamar a funciones
   loadEntities();
@@ -160,10 +160,10 @@ void loadEntities()
     if (int(disectEnts[0]) == -5) map01obj = (OverworldObject[]) append(map01obj, new OverworldObject(float(disectEnts[1])*tileSize, float(disectEnts[2])*tileSize, npcSprite03, int(disectEnts[3])));
     if (int(disectEnts[0]) == -4) map01obj = (OverworldObject[]) append(map01obj, new OverworldObject(float(disectEnts[1])*tileSize, float(disectEnts[2])*tileSize, npcSprite02, int(disectEnts[3])));
     if (int(disectEnts[0]) == -3) map01obj = (OverworldObject[]) append(map01obj, new OverworldObject(float(disectEnts[1])*tileSize, float(disectEnts[2])*tileSize, npcSprite01, int(disectEnts[3])));
-    if (int(disectEnts[0]) == -2) warpTiles = (OverworldObject[]) append(warpTiles, new OverworldObject(float(disectEnts[1])*tileSize, float(disectEnts[2])*tileSize, null, int(disectEnts[3])));
-    if (int(disectEnts[0]) == -1) mapTransitions = (OverworldObject[]) append(mapTransitions, new OverworldObject(float(disectEnts[1])*tileSize, float(disectEnts[2])*tileSize, null, int(disectEnts[3])));
-    if (int(disectEnts[0]) > 0 && int(disectEnts[0]) != 10)  map01obj = (OverworldObject[]) append(map01obj, new OverworldObject(float(disectEnts[1])*tileSize, float(disectEnts[2])*tileSize, tileset01.get(int(disectEnts[0])*tileSize, 0, tileSize, tileSize), int(disectEnts[3])));
-    if (int(disectEnts[0]) == 10) grassPatches = (OverworldObject[]) append(grassPatches, new OverworldObject(float(disectEnts[1])*tileSize, float(disectEnts[2])*tileSize, tileset01.get(int(disectEnts[0])*tileSize, 0, tileSize, tileSize), 0));
+    //if (int(disectEnts[0]) == -2) warpTiles = (OverworldObject[]) append(warpTiles, new OverworldObject(float(disectEnts[1])*tileSize, float(disectEnts[2])*tileSize, null, int(disectEnts[3])));
+    //if (int(disectEnts[0]) == -1) mapTransitions = (OverworldObject[]) append(mapTransitions, new OverworldObject(float(disectEnts[1])*tileSize, float(disectEnts[2])*tileSize, null, int(disectEnts[3])));
+    //if (int(disectEnts[0]) > 0 && int(disectEnts[0]) != 10)  map01obj = (OverworldObject[]) append(map01obj, new OverworldObject(float(disectEnts[1])*tileSize, float(disectEnts[2])*tileSize, tileset01.get(int(disectEnts[0])*tileSize, 0, tileSize, tileSize), int(disectEnts[3])));
+    //if (int(disectEnts[0]) == 10) grassPatches = (OverworldObject[]) append(grassPatches, new OverworldObject(float(disectEnts[1])*tileSize, float(disectEnts[2])*tileSize, tileset01.get(int(disectEnts[0])*tileSize, 0, tileSize, tileSize), 0));
   }
 
   //objetos sobredibujados
@@ -261,7 +261,7 @@ void draw()
   {
     overworldSprites[i].display();
     
-  }
+    }
 
   popMatrix();//resetear a lo componentes originales
 
@@ -283,7 +283,14 @@ void draw()
     case 3: 
     suboptions();
     break;
+    
+    case 4:
+    lose();
+    break;
   }
+  
+    
+    
   
 }
 
