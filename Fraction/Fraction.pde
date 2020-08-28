@@ -133,7 +133,7 @@ void setup()
   
   
   loadCollision();   //llamar a funciones
-  //loadEntities();
+  loadEntities();
 }
 
 void loadCollision()
@@ -167,14 +167,14 @@ void loadEntities()
   }
 
   //objetos sobredibujados
-  String[] loadFile = loadStrings("data/scripts/map01overdrawn.txt");  //datos donde se encuentran estos objetos
+ /* String[] loadFile = loadStrings("data/scripts/map01overdrawn.txt");  //datos donde se encuentran estos objetos
   String[] dissection = new String[0];  //disceccion de los datos
   for (int i = 0; i<loadFile.length; ++i)
   {
     dissection = split(loadFile[i], ",");
 
     overworldSprites = (OverworldObject[]) append(overworldSprites, new OverworldObject(float(dissection[1])*tileSize, float(dissection[2])*tileSize, tileset01.get((int(dissection[0])-1)*tileSize, 0, tileSize, tileSize), 1));
-  }
+  }*/
 }
 
 void draw()
@@ -260,6 +260,7 @@ void draw()
   for (int i = 0; i<overworldSprites.length; ++i)
   {
     overworldSprites[i].display();
+    
   }
 
   popMatrix();//resetear a lo componentes originales
@@ -476,6 +477,28 @@ void keyPressed()
     owMenu = -1;
   }
   //}
+}
+
+PVector getDireccion(float x1, float y1, float x2, float y2, float v) {  //funcion para obtener direccion
+  PVector vec1 = new PVector(x1, y1);
+  PVector vec2 = new PVector(x2, y2);
+  PVector dir = new PVector();
+
+  dir.set(PVector.sub(vec1, vec2));
+  dir.normalize();
+  dir.mult(resizeX(v));
+
+  return dir;
+}
+
+float resizeX(float value) {              //función para hacer el resize en X
+  float newValue = (width*value)/1920;
+  return newValue;
+}
+
+float resizeY(float value) {              //función para hacer el resize en Y
+  float newValue = (height*value)/1080;
+  return newValue;
 }
 
 void keyReleased()

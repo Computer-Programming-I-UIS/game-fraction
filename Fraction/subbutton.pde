@@ -87,7 +87,7 @@ void creditos() {
   rect(10, 430, 100, 50, 5);
   fill(n2);
   textSize(30);
-  text("Atrás", 65, 465);
+  text("Atrás", 35, 465);
   //al hacer click el color de los botones se invierte y regresa a la pestaña anterior
   if ((mouseX>10) && (mouseX<10+100) && (mouseY>430) && (mouseY<430+50)) {
     l=255;
