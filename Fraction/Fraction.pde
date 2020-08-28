@@ -1,16 +1,4 @@
-final int n_sprites_x = 1 ;
-final int n_sprites_y = 2;
-final int total_sprites = n_sprites_x * n_sprites_y; //2
 
-int current_sprite = 0;
-int speed_x = 6; 
-int pos_x = 0;
-int pos_y = 0;
-
-PImage [] my_sprites;
-PImage pause; //Botón pause
-PImage fondomenu;  //Menú inicio
-PImage menupause; //menú pause
 /***********************/
 
 import processing.sound.*;
@@ -29,6 +17,10 @@ final int rows = 20;          //uso la funcion final, para indicar de qu esta va
 final int columns = 50;
 final int tileSize = 16;
 
+//colores
+  color n1, n2, n3, l;
+  color b1, b2, b3;
+
 float owScaler = 3.0;//usado para hacer la escala de zooom
 int currentArea; //usado para saber donde se encuentra el jugador
 int notificationTimer = 0;
@@ -46,6 +38,11 @@ PImage overworldmapImg, house01Img, house02Img, house03Img, tileset01;//sprites 
 PImage trainerSprite01, battleBackground01;//sprites de pelea
 
 
+//menu importaciones
+PImage background, menu, clasification;
+int option, opt;
+
+//sprites iconos
 PImage[] SpritesIcons = new PImage[0];  //iconos
 PImage healthbarBg, healthbarOver, expbarOver;//barra de vida
 
@@ -110,6 +107,9 @@ void setup()
   font = createFont("data/pkmnrs.ttf", 14);      //fuente de texto
   textFont(font);
   
+  //main menu
+  clasification = loadImage("data/mainmenu/clasification.png");
+  
   for (int i= 0; i < Objetlist.length; ++i){
   PImage loadedIconimg = loadImage("data/Sprites/Spritesicon" + i + ".png");
   SpritesIcons = (PImage[])(append(SpritesIcons, loadedIconimg));
@@ -123,14 +123,17 @@ void setup()
   pUniqueMonstersCaught = append(pUniqueMonstersCaught, playerStarterMonster);
   player = new Player(tileSize*5, tileSize*7, pSprite, testPlayerTeam);
 
+  
+  
   //npc's
   npcSprite01 = loadImage("data/sprites/spr_npc01.png");//npc 1
   npcSprite02 = loadImage("data/sprites/spr_npc02.png");//npc 2
   npcSprite03 = loadImage("data/sprites/spr_npc03.png");//npc 3
   trainerSprite01 = loadImage("data/sprites/spr_trainer01.png");//imagen del juagor en el menú
   
+  
   loadCollision();   //llamar a funciones
-  loadEntities();
+  //loadEntities();
 }
 
 void loadCollision()
@@ -177,7 +180,21 @@ void loadEntities()
 void draw()
 {
 
-
+  switch(option){
+  case 0:
+  background(0);
+    //image(background, 0, 0);
+    //image(menu, -50, -70);
+    image(clasification, 10, 500, 120,160);
+    fill(0);
+    textSize(80);
+    textAlign(CENTER);
+    text("Fraction", width/2, 70);
+    button();
+    break;
+    
+   case 1:
+  
   pPlaytimeFrame++;//aumenta cada frame
   if (pPlaytimeFrame >= 120*60)//despues 60 segundos, incrementa tiempo jugado(minutos) por  1 
   {
@@ -260,7 +277,13 @@ void draw()
   if (isInConversation == true) conversationHandler(0);// si está en conversación
 
   blackoutEffect();//dibuja el efecto apagon
-  //}
+    break;
+    
+    case 3: 
+    suboptions();
+    break;
+  }
+  
 }
 
 void keyPressed()
