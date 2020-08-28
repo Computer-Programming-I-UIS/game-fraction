@@ -75,19 +75,19 @@ void creditos() {
   textSize(30);
   text("Creadores: Ali Isaak", 200, 150);
   text("           Andrade Otto", 240, 200);
-  fill(0);
+// fill(0);
   textSize(25);
-  text("A continuación se refieren los derechos de autor de algunas imagenes utilizadas ", 30, 250);
-  text("en nuestro juego (cuyo autor es conocido), por otra parte, las imagenes con autor ", 30, 280);
-  text("desconocido se encuentran debidamente referenciadas en el código(pestaña Menu, línea 200),", 30, 310);
-  text("al igual que los audios.", 30, 340);
-  text("Muñeco de nieve:   Cisily", 300, 360);
-  text("Montañas:   Carlos A. Gatica V.", 300, 400);
+  textAlign(LEFT);
+  text("Los mapas de este juego le pertenecesn a los creadores de este mismo ", 30, 250);
+  text("la imagen del personaje principal fue basada en los sprites de una personaje de Pokemon", 30, 280);
+  text("sin embargo, se le realizaron modificaciones bastante notables para que no fuese el mismo", 30, 310);
+  text("los audios son libre de copyrigth, hecho para pequeños creadores.", 70, 340);
+
   fill(l, 160);
   rect(10, 430, 100, 50, 5);
   fill(n2);
   textSize(30);
-  text("Atrás", 25, 465);
+  text("Atrás", 65, 465);
   //al hacer click el color de los botones se invierte y regresa a la pestaña anterior
   if ((mouseX>10) && (mouseX<10+100) && (mouseY>430) && (mouseY<430+50)) {
     l=255;
